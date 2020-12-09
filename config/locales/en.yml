@@ -68,9 +68,39 @@ en:
       reset_success: Password reset is successful
   shop:
     not_found: Unable to find the shop
+  role:
+    validation:
+      already_exist: "Role with %{value} already exist"
+      limit_reached: There are already %{limit} roles in your account. Please contact support to increase the limit
   ratelimit:
     exceeded: You have exceeded the number of attempts. Please try again after sometime
     login: You have exceeded the number of login attempts. Please try again after sometime
     reset_password: You have exceeded the number of password reset attempts. Please try again after sometime
     reset_profile: You have exceeded the number of email or mobile reset attempts. Please try again after sometime
     registration: You have exceeded the number of registration attempts. Please try again after sometime
+  unprivileged:
+    default: Please contact your admin for access
+    admin/customer:
+      index: You are not allowed to view customer details. Please contact your admin
+      update: You are not allowed to update customer details. Please contact your admin
+      destroy: You are not allowed to delete customer. Please contact your admin
+    admin/shop:
+      add_shop: You are not allowed to add new shop. Please contact your admin
+      create: You are not allowed to add new shop. Please contact your admin
+      index: You are not allowed to view shop details. Please contact your admin
+      update: You are not allowed to update shop details. Please contact your admin
+      location: You are not allowed to update shop location details. Please contact your admin
+      icon: You are not allowed to update shop icon. Please contact your admin
+      cover_photo: You are not allowed to update shop cover photos. Please contact your admin
+      payment: You are not allowed to update payment details for your shop. Please contact your admin
+      meta: You are not allowed to update meta details for your shop. Please contact your admin
+      destroy: You are not allowed to delete shop. Please contact your admin
+      delete_icon: You are not allowed to delete shop icon. Please contact your admin
+      delete_cover_photo: You are not allowed to delete shop cover photo. Please contact your admin
+    admin/role:
+      add_role: You are not allowed to add new role. Please contact your admin
+      create: You are not allowed to add new role. Please contact your admin
+      index: You are not allowed to view roles. Please contact your admin
+      show: You are not allowed to view role details. Please contact your admin
+      update: You are not allowed to update role details. Please contact your admin
+      destroy: You are not allowed to delete role. Please contact your admin

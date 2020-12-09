@@ -1,0 +1,44 @@
+<div class="component top-30 center">
+  <table>
+    <tr>
+      <th>Id</th> <th>Name</th> <th>Employees</th> <th>Last Updated</th> <th></th> <th></th> <th></th>
+    </tr>
+    <% @roles.each do |role| %>
+      <tr>
+        <td><%= role.id %></td>
+        <td><%= role.name || '-' %></td>
+        <td><%= role.employees.count %></td>
+        <td><%= role.updated_at.in_time_zone(PlatformConfig['time_zone']).strftime('%d-%m-%Y %H:%M') %></td>
+        <td><%= button_to '👁️', role_path(role_id: role.id), method: :get, class: 'bt_icon pointer' %></td>
+        <td onclick="edit(<%= role.as_json('admin_role').to_json %>)" class="pointer">✏️</td>
+        <td><%= button_to '❌', role_path(role_id: role.id), method: :delete, class: 'bt_icon pointer' %></td>
+      </tr>
+    <% end %>
+  </table>
+  
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="hide_modal()">&times;</span><br>
+      <%= form_tag '', id: 'update', method: :put do %>
+        <div class="left-40 right-50">
+          <%= label_tag :name, 'Name' %><br>
+          <%= text_field_tag :name %><br><br>
+          <%= submit_tag 'Update', class: 'chip mid-small active weight-600' %>
+          <br><br>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+  function edit(role) {
+    document.getElementById("update").action = "<%= role_index_path(id: params['id']) %>/" + role.id;
+    document.getElementById("name").value = role.name;
+    document.getElementById("modal").style.display = "block";
+  }
+
+  function hide_modal() {
+    document.getElementById("modal").style.display = "none";
+  }
+<% end %>

@@ -73,6 +73,12 @@ Rails.application.routes.draw do
         put :meta
         delete :icon, to: 'shop#delete_icon'
         delete :cover_photo, to: 'shop#delete_cover_photo'
+
+        resources :role, param: :role_id, only: [:index, :create, :show, :update, :destroy] do
+          collection do 
+            get :add_role
+          end
+        end
       end
     end
   end

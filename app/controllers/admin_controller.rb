@@ -25,6 +25,11 @@ class AdminController < ApplicationController
       flash[:warn] = 'Please verify OTP to continue'
       return redirect_to otp_auth_index_path
     end
+
+    unless Role.verify(employee.employments.privileges, params['controller'], params['action'])
+      flash[:warn] = I18n.t("unprivileged.#{params['controller']}.#{params['action']}", default: I18n.t('unprivileged.default'))
+      return redirect_to request.referrer
+    end
     
     employee.make_current
   end

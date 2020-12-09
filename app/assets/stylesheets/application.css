@@ -335,7 +335,7 @@ table tr:hover {
   float: right;
   font-size: 24px;
   opacity: .2;
-  line-height: 0.6;
+  line-height: 1;
   text-decoration: none;
 }
 

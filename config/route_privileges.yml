@@ -1,0 +1,24 @@
+admin/customer:
+  index: CUSTOMER_READ
+  update: CUSTOMER_UPDATE
+  destroy: CUSTOMER_DELETE
+admin/shop:
+  add_shop: SHOP_CREATE
+  create: SHOP_CREATE
+  index: SHOP_READ
+  update: SHOP_UPDATE
+  location: SHOP_UPDATE
+  icon: SHOP_UPDATE
+  cover_photo: SHOP_UPDATE
+  payment: SHOP_UPDATE
+  meta: SHOP_UPDATE
+  destroy: SHOP_DELETE
+  delete_icon: SHOP_UPDATE
+  delete_cover_photo: SHOP_UPDATE
+admin/role:
+  add_role: ROLE_CREATE
+  create: ROLE_CREATE
+  index: ROLE_READ
+  show: ROLE_READ
+  update: ROLE_UPDATE
+  destroy: ROLE_DELETE

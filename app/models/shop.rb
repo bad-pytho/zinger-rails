@@ -5,10 +5,13 @@ class Shop < ApplicationRecord
   searchkick word_start: ['name'], locations: ['location'], default_fields: ['status', 'deleted']
 
   has_one :shop_detail
-  has_and_belongs_to_many :employees
+  has_many :employments
+  has_many :employees, through: :employments
+  has_many :roles
 
   validate :validations
   after_commit :clear_cache
+  after_create_commit :after_create_callbacks
 
   def search_data
     { name: self.name, location: { lat: self.lat, lon: self.lng }, tags: self.tags, status: self.status, deleted: self.deleted }
@@ -50,5 +53,9 @@ class Shop < ApplicationRecord
 
   def clear_cache
     Core::Redis.delete(Core::Redis::SHOP_BY_ID % { id: self.id })
+  end
+
+  def after_create_callbacks
+    ShopSeed.perform_async(self.id)
   end
 end

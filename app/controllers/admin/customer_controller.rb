@@ -1,5 +1,6 @@
 class Admin::CustomerController < AdminController
   before_action :set_title
+  before_action :load_customer, except: :index
 
   def index
     @title = 'Customers'
@@ -15,10 +16,9 @@ class Admin::CustomerController < AdminController
   end
 
   def update
-    customer = Customer.fetch_by_id(params['id'])
-    customer.update(name: params['name'], status: params['status'])
-    if customer.errors.any?
-      flash[:error] = customer.errors.messages.values.flatten.first
+    @customer.update(name: params['name'], status: params['status'])
+    if @customer.errors.any?
+      flash[:error] = @customer.errors.messages.values.flatten.first
     else
       flash[:success] = 'Update is successful'
     end
@@ -27,18 +27,19 @@ class Admin::CustomerController < AdminController
   end
 
   def destroy
-    customer = Customer.fetch_by_id(params['id'])
-    if customer.present?
-      customer.update!(deleted: true)
-      flash[:success] = 'Deletion is successful'
-    else
-      flash[:error] = 'Deletion failed'
-    end
-    
+    @customer.update!(deleted: true)
     redirect_to customer_index_path(q: params['id'])
   end
 
   def set_title
     @header = { links: [] }
+  end
+
+  def load_customer
+    @customer = Customer.fetch_by_id(params['id'])
+    if @customer.nil?
+      flash[:error] = 'Customer is not found'
+      return redirect_to customer_index_path(q: params['id'])
+    end
   end
 end

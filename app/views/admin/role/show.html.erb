@@ -1,0 +1,24 @@
+<div class="component top-30">
+  <% @role.privileges.each do |privilege| %>
+    <p><%= privilege %></p>
+  <% end %>
+
+  <hr class="top-50 width-40">
+  <div class="top-30 medium center title-600">Users</div>
+  <table class="center top-30">
+    <tr>
+      <th>Id</th> <th>Name</th> <th>Email</th> <th>Mobile</th> <th>2FA</th> <th>Status</th> <th></th>
+    </tr>
+    <% @role.employees.sort.each do |employee| %>
+      <tr>
+        <td><%= employee.id %></td>
+        <td><%= employee.name || '-' %></td>
+        <td><%= employee.email || '-' %></td>
+        <td><%= employee.mobile || '-' %></td>
+        <td><%= employee.two_fa_enabled ? 'Yes' : 'No' %></td>
+        <td><%= Employee::STATUSES.key(employee.status) %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
